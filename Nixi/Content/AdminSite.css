@@ -1,0 +1,260 @@
+/* ************************** RESPONSIVE ************************** */
+@media (max-width: 959px) {
+    .registration-button{
+        width:60px;
+        height:60px;
+        margin:0 5px;
+    }
+    .fullscreen-button{
+        width:60px;
+        height:60px;
+        margin:15px 0;
+        padding:0;
+    }
+}
+@media (min-width: 960px) {
+    .registration-button{
+        width:80px;
+        height:80px;
+        margin:0 5px;
+    }
+    .fullscreen-button{
+        width:80px;
+        height:80px;
+        margin:15px 0;
+        padding:0;
+    }
+}
+
+
+
+
+/*
+* Homemade sidebar
+*/
+/* ************************************** GEZAMELIJK ******************************** */
+.own-sidemenu-item{
+    display: inline-block;
+    color:lightgrey;
+    padding-left: 20px;
+}
+.sidebar-actief{
+    background-color: darkslategrey;
+}
+.own-sidemenu-item:hover{
+    text-decoration:none;
+    color:white;
+    background-color: deepskyblue;
+}
+#admin-sidebar ul{
+    width:100%;
+    margin:0;
+    padding:0;
+}
+#admin-sidebar li{
+    float:left;
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-inner-spin-button {
+    display: none;
+}
+
+/* ************************************** XS ******************************** */
+@media (max-width: 575px) {
+    
+    #admin-sidebar{
+        color:white;
+        width:250px;
+       padding: 0;
+    }
+    #admin-sidebar li{
+        width:50%;
+    }
+    .own-sidemenu-item{
+        width:100%;
+        height:30px;
+        padding-top:2px;
+        text-decoration: none;
+    }
+}
+/* ************************************** SM > GROTER ******************************** */
+@media (min-width: 576px) {
+    .navbar-brand{
+        width:250px;
+    }
+    #admin-sidebar{
+        color:white;
+        width:250px;
+          position: fixed;
+          top: 4em;
+          bottom: 0;
+          left: 0;
+          z-index: 1000;
+          padding: 0;
+          overflow-x: hidden;
+          overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+          border-right: 1px solid #eee;
+    }
+    #admin-content{
+        padding-left:250px;
+    }
+    #admin-sidebar li{
+        width:100%;
+    }
+    .own-sidemenu-item{
+        padding-top:8px;
+        height:40px;
+        width:100%;
+        text-decoration: none;
+    }
+}
+
+
+/*
+* Body Admin
+*/
+#admin-container{
+    padding-top:4em;
+    
+}
+
+
+/*
+
+    TODDLER
+
+*/
+.ChildDetailBar {
+    margin-bottom: 10px;
+    padding: 0 20px;
+    width: 100%;
+    text-align: center;
+    height: 100px;
+    background-color: #F7F7F7;
+}
+
+.ChildDetailBarCard {
+    width: 25%;
+}
+
+.ChildDetailBarButtons {
+    width: 75%;
+}
+
+.ChildDetails-PictureBox {
+    height: 100px;
+    width: 100px;
+    float: left;
+    border: 1px solid lightgrey;
+}
+
+
+
+.nopicture {
+    height: 90px;
+    width: 90px;
+    margin: 5px;
+    line-height: 90px;
+    color: grey;
+    font-size: 4em;
+    border: 2px dashed grey;
+    background-image: url("Images/baby.png");
+    background-size: contain;
+}
+
+.ChildDetails-Namebox {
+    height: 100px;
+    min-width: 200px;
+    float: left;
+    border: 1px solid lightgrey;
+    font-size: 2em;
+    text-align: left;
+    padding: 0 50px 0 5px;
+}
+
+.ChildDetails-FillInBox {
+    height: 100px;
+    width: 15%;
+    min-width: 100px;
+    
+    float: left;
+    border: 1px solid lightgrey;
+}
+
+.ChildDetails-FillInBox:hover {
+    background-color: antiquewhite;
+}
+
+.ChildDetails-FillInBox:hover > .ChildDetails-FillInBox-top {
+    background-color: lightgrey;
+}
+
+.ChildDetails-FillInBox-top {
+    height: 60px;
+    margin: 5px;
+    border: 2px dashed grey;
+    text-align: center;
+    line-height: 60px;
+    font-size: 2em;
+}
+/*
+.ChildDetails-FillInBox-top:hover{ 
+    background-color:lightgrey;
+}*/
+.ChildDetails-FillInBox-bottom {
+    height: 15px;
+}
+
+.checked {
+    background-color: lightgreen;
+    border: 2px solid grey;
+}
+
+.CDA-width {
+    min-width: 150px;
+}
+
+/* CalendarTools  */
+
+#Calendar_Month_DIV
+
+
+.Own_Calendar tr td {
+    border: 1px solid lightgrey;
+    padding: 0;
+    margin: 0;
+}
+
+.Own_Calendar-AM {
+    background-image: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(255, 0, 0) 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 50%;
+    border: 1px solid lightgrey;
+    padding: 0;
+    margin: 0;
+}
+.Own_Calendar-PM {
+    background-image: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(255, 0, 0) 100%);
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    background-size: 100% 50%;
+    border: 1px solid lightgrey;
+    padding: 0;
+    margin: 0;
+}
+.Own_Calendar-Full {
+    background-color: red;
+    border: 1px solid lightgrey;
+    padding: 0;
+    margin: 0;
+}
+.Own_Calendar-No {
+    background-color: white;
+    border: 1px solid lightgrey;
+    padding: 0;
+    margin: 0;
+}

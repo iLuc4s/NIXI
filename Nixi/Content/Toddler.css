@@ -1,0 +1,94 @@
+/* ************************** RESPONSIVE ************************** */
+@media (max-width: 959px) {
+
+}
+@media (min-width: 960px) {
+
+}
+
+/*
+* Homemade sidebar
+*/
+/* ************************************** GEZAMELIJK ******************************** */
+
+.ChildDetailBar{
+    margin-bottom:10px;
+    padding:0 20px; 0 20px;
+    width:100%;
+    text-align:center;
+    height:100px;
+    background-color:#F7F7F7;
+}
+.ChildDetailBarCard{
+    width:25%;
+}
+.ChildDetailBarButtons{
+    width:75%;
+}
+
+.ChildDetails-PictureBox{
+    height:100px;
+    width:100px;
+    float:left;
+    border:1px solid lightgrey;
+}
+.ChildDetails-Picture{
+
+}
+.nopicture{
+    height:90px;
+    width:90px;
+    margin:5px;
+    line-height:90px;
+    color:grey;
+    font-size: 4em;
+    border:2px dashed grey;
+    background-image: url("images/baby.png");
+    background-size:contain;
+
+}
+.ChildDetails-Namebox{
+    height:100px;
+    min-width:200px;
+    float:left;
+    border:1px solid lightgrey;
+    font-size: 2em;
+    text-align: left;
+    padding:0px 50px 0px 5px;
+}
+.ChildDetails-FillInBox{
+    height:100px;
+    width:15%;
+    min-width:100px;;
+    float:left;
+    border:1px solid lightgrey;
+}
+.ChildDetails-FillInBox:hover{
+    background-color:antiquewhite;
+}
+.ChildDetails-FillInBox:hover > .ChildDetails-FillInBox-top{
+    background-color:lightgrey;
+}
+.ChildDetails-FillInBox-top{
+    height:60px;
+    margin:5px;
+    border:2px dashed grey;
+    text-align:center;
+    line-height:60px;
+    font-size: 2em;
+    
+}/*
+.ChildDetails-FillInBox-top:hover{ 
+    background-color:lightgrey;
+}*/
+.ChildDetails-FillInBox-bottom{
+    height:15px;
+}
+.checked{
+    background-color: lightgreen;
+    border:2px solid grey;
+}
+
+.CDA-width{
+    min-width:150px;
+}

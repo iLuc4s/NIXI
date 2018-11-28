@@ -1,0 +1,51 @@
+﻿@model Nixi.Areas.Diary.Models.ToddlerInfoViewModel
+
+@{
+    if (Model == null)
+    {
+        
+    }
+    else
+    {
+<div class="fixed-bottom navbar navbar-dark bg-dark">
+    <img class="toddlercard-icon" src="~/Content/Images/baby.png">
+    <span class="navbar-text">
+        @Model.FirstName<br />@Model.LastName<br />@Model.BirthDate.Day @Model.BirthDate.ToString("MMMM") @Model.BirthDate.Year
+    </span>
+    <span class="navbar-text">
+        <button id="ToddlerEntries-Opener">Dagboek</button>
+    </span>
+    <span class="navbar-text">
+        <b class="d-sm-none">XS</b>
+        <b class="d-none d-md-none d-sm-flex">SM</b>
+        <b class="d-none d-lg-none d-md-flex">MD</b>
+        <b class="d-none d-lg-flex">LG</b>
+    </span>
+
+    <span class="navbar-text"><b>[A][B][C][D][E][F][G][H]</b></span>
+</div>
+        <div id="ToddlerEntries-Modal" title="Log"></div>
+    }
+
+
+
+}
+
+
+    
+        <script>
+            toddlerentriesdialog = $("#ToddlerEntries-Modal").dialog({
+                position: { my: "left", at: "left top", of: window },
+                autoOpen: false,
+            height: 300,
+            width: "auto",
+            modal: true
+        });
+            $("#ToddlerEntries-Opener").button().on("click", function () {
+                
+                $('#ToddlerEntries-Modal').load('@Url.Action("ShowToddlerEntries", "Diary", new { subjectid = Model.Id })');
+                toddlerentriesdialog.dialog("open");
+        });
+        </script>
+    
+    

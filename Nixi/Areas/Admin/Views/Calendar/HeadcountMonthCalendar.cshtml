@@ -1,0 +1,268 @@
+﻿@model List<Nixi.Areas.Admin.Models.HeadcountByDay>
+@using Nixi.Areas.Admin.Models
+@{
+    ViewBag.Title = "HeadcountMonthCalendar";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    DateTime period = ViewBag.period;
+
+}
+@section css {
+    <link href="@Url.Content("~/Content/calendar.css")" rel="stylesheet" />
+}
+<div class="col-sm-auto bg-dark" id="admin-sidebar">
+    @Html.Partial("_CalendarSideMenu", new List<Class> { })
+</div>
+<div class="col" id="admin-content">
+    <!--  #### NAVBAR ####  -->
+    <nav class="navbar navbar-light bg-light">
+        @Html.ActionLink("Terug naar Overzicht", "Index", "Calendar", null, new { @class = "btn btn-light btn-lg", @role = "button" })
+        <a href="#" class="navbar-brand">Kalender</a>
+
+        @*<form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Zoeken" aria-label="Zoeken">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Zoeken</button>
+            </form>*@
+    </nav>
+    <!-- Content -->
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            @Html.ActionLink("<-", "HeadcountMonthCalendar", new { period = period.AddMonths(-1) }, new { @class = "btn btn-outline-dark btn-sm", @role = "button" })
+        </div>
+        <input class="btn btn-sm btn-outline-dark" type="button" value="@period.ToString("MMMM") @period.Year">
+        <div class="input-group-append">
+            @Html.ActionLink("->", "HeadcountMonthCalendar", new { period = period.AddMonths(1) }, new { @class = "btn btn-outline-dark btn-sm", @role = "button" })
+        </div>
+    </div>
+    <div id="Calendar_Month">
+
+
+
+        @*<table id="month_calendar" class="Own_Calendar" style="border:1px solid lightgrey; padding:0px; margin:0px; text-align:left; ">
+            <thead>
+                <tr>
+
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Ma</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Di</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Wo</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Do</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Vr</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Za</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Zo</td>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+
+                    DateTime firstday = new DateTime(period.Year, period.Month, 1);
+                    DateTime startofCalendar = firstday;
+
+                    switch (firstday.DayOfWeek)
+                    {
+                        case DayOfWeek.Monday:
+                            startofCalendar = firstday;
+                            break;
+                        case DayOfWeek.Tuesday:
+                            startofCalendar = firstday.AddDays(-1); ;
+                            break;
+                        case DayOfWeek.Wednesday:
+                            startofCalendar = firstday.AddDays(-2); ;
+                            break;
+                        case DayOfWeek.Thursday:
+                            startofCalendar = firstday.AddDays(-3); ;
+                            break;
+                        case DayOfWeek.Friday:
+                            startofCalendar = firstday.AddDays(-4); ;
+                            break;
+                        case DayOfWeek.Saturday:
+                            startofCalendar = firstday.AddDays(-5); ;
+                            break;
+                        case DayOfWeek.Sunday:
+                            startofCalendar = firstday.AddDays(-6); ;
+                            break;
+                    }
+                    DateTime Counter = startofCalendar;
+                    for (int r = 1; r <= 6; r++)
+                    {
+
+                        <tr style="padding:0px; margin:0px; height:50px;">
+
+                            @for (int c = 1; c <= 7; c++)
+                            {
+                                var id = "mctd_" + Counter.Year + "_" + Counter.Month + "_" + Counter.Day;
+                                if (Counter.Month != period.Month)
+                                {
+                                    <td id="@id" style="vertical-align: top; background-color:ghostwhite; border:1px solid lightgrey; padding:0px; margin:0px;" class="text-muted">@Counter.Day</td>
+                                }
+                                else
+                                {
+                                    <td id="@id" class="" style="vertical-align: top;">@Counter.Day</td>
+                                }
+                                Counter = Counter.AddDays(1);
+
+                            }
+
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>*@
+    </div>
+    <div id="Calendar_Month">
+        <table id="month_calendar" class="Own_Calendar" style="border:1px solid lightgrey; padding:0px; margin:0px; text-align:center;">
+            <thead>
+                <tr>
+
+                    <td style="background-color:white; padding:0px; margin:0px; width:75px;">Ma</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:75px;">Di</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:75px;">Wo</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:75px;">Do</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:75px;">Vr</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:75px;">Za</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:75px;">Zo</td>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    DateTime firstday = new DateTime(period.Year, period.Month, 1);
+                    DateTime startofCalendar = firstday;
+
+                    switch (firstday.DayOfWeek)
+                    {
+                        case DayOfWeek.Monday:
+                            startofCalendar = firstday;
+                            break;
+                        case DayOfWeek.Tuesday:
+                            startofCalendar = firstday.AddDays(-1); ;
+                            break;
+                        case DayOfWeek.Wednesday:
+                            startofCalendar = firstday.AddDays(-2); ;
+                            break;
+                        case DayOfWeek.Thursday:
+                            startofCalendar = firstday.AddDays(-3); ;
+                            break;
+                        case DayOfWeek.Friday:
+                            startofCalendar = firstday.AddDays(-4); ;
+                            break;
+                        case DayOfWeek.Saturday:
+                            startofCalendar = firstday.AddDays(-5); ;
+                            break;
+                        case DayOfWeek.Sunday:
+                            startofCalendar = firstday.AddDays(-6); ;
+                            break;
+                    }
+                    DateTime Counter = startofCalendar;
+                    for (int r = 1; r <= 6; r++)
+                    {
+                        <tr style="padding:0; margin:0; height:75px;">
+                            @for (int c = 1; c <= 7; c++)
+                            {
+                                var id = "mctd_" + Counter.Year + "_" + Counter.Month + "_" + Counter.Day;
+                                if (Counter.Month != period.Month)
+                                {
+                                    <td style="vertical-align: top; background-color:ghostwhite; border:1px solid lightgrey; padding:0px; margin:0px;" class="text-muted">
+                                        <div style="text-align:right;">@Counter.Day</div>
+                                        <div id="@id" style="padding:0; margin:0; text-align:center; font-size:large;"></div>
+                                        <div></div>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="" style="vertical-align: top;">
+                                        <div style="text-align:right;">@Counter.Day</div>
+                                        <div id="@id" style="padding:0; margin:0; text-align:center; font-size:21px;"></div>
+                                        <div style="padding:0; margin:0; text-align:center; font-size:21px;"></div>
+                                    </td>
+                                }
+                                Counter = Counter.AddDays(1);
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    @*<div>
+            <ol class="calendar" start="6">
+
+                <li id="lastmonth">
+                    <ul start="29">
+                        <li>29</li>
+                        <li>30</li>
+                    </ul>
+                </li>
+
+                <li id="thismonth">
+
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li class="holiday">4 <p>You can use a paragraph element in here</p></li>
+                        <li>5</li>
+
+                        <li>6</li>
+                        <li>7</li>
+                        <li>8</li>
+                        <li>9 <p><span class="badge badge-pill badge-primary" style="margin:15px 0 0 20px; font-size:large;">25</span></p></li>
+                        <li>10</li>
+
+                        <li>11</li>
+                        <li>12</li>
+                        <li>13</li>
+                        <li>14</li>
+                        <li>15</li>
+                        <li>16</li>
+
+                        <li>17<ol><li>maybe you need an ordered list?</li><li>That is ok too</li><li>even when you have too much stuff to do!</li></ol></li>
+                        <li>18</li>
+                        <li>19</li>
+                        <li>20</li>
+                        <li>21</li>
+
+                        <li>22</li>
+                        <li>23</li>
+                        <li>24</li>
+                        <li>25</li>
+                        <li>26</li>
+                        <li>27</li>
+
+                        <li>28</li>
+                        <li>29</li>
+                        <li>30</li>
+                        <li>31</li>
+                    </ul>
+                </li>
+
+                <li id="nextmonth">
+
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                    </ul>
+                </li>
+
+            </ol>
+
+
+
+
+        </div>*@
+
+</div>
+
+@section scripts{
+    <!-- INJECTION OF THE DATES -->
+    <script>
+    var headcount = @Html.Raw(Json.Encode(@Model));
+    for (var i = 0; i < headcount.length; i++) {
+        var myDate = new Date(headcount[i].Date.match(/\d+/)[0] * 1);
+        var year = myDate.getFullYear();
+        var month = myDate.getMonth()+1;
+        var day = myDate.getDate();
+        var id = "#mctd_" + year + "_" + month + "_" + day;
+
+        $(id).append('<span class="badge badge-pill badge-primary" style="margin:0;">AM: ' + headcount[i].Count + '</span>');
+    }
+    </script>
+}

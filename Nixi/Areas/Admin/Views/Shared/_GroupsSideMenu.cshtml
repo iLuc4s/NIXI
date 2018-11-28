@@ -1,0 +1,44 @@
+﻿@model List<Nixi.Areas.Admin.Models.Class>
+@using Nixi.Areas.Admin.Helpers;
+
+@{
+
+    List<Nixi.Areas.Admin.Models.Class> classes = new List<Nixi.Areas.Admin.Models.Class>();
+    if (Model != null)
+    {
+        classes = Model.ToList();
+    }
+    DateTime period;
+    if (ViewContext.Controller.ViewBag.period != null)
+    {
+        period = ViewContext.Controller.ViewBag.period;
+    }
+    else
+    {
+        period = DateTime.Now;
+    }
+
+}
+
+@{
+    if (Model != null && Model.Count != 0)
+    {
+        <h6 style="margin:60px 0 0 15px;">Zoeken per klas:</h6>
+        <ul style="margin-top:0px;">
+            @foreach (Nixi.Areas.Admin.Models.Class c in classes)
+            {
+                string name = c.Location.DaycareName + " / " + c.Name;
+
+                <li>@Html.SideMenuItem(name, "Headcount_MonthCalendar", "Calendar", new { classId = c.Id, period = period })</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <ul style="margin-top:0px;">
+            <li>@Html.SideMenuItem("Link", "Groups", "Admin")</li>
+            <li>@Html.SideMenuItem("Link", "Groups", "Admin")</li>
+        </ul>
+    }
+}
+

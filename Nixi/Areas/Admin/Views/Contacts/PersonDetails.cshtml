@@ -1,0 +1,139 @@
+﻿@model Nixi.Areas.Admin.Models.Person
+@using Nixi.Areas.Admin.Models
+@{
+    ViewBag.Title = "PersonDetails";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>@Html.DisplayFor(model => model.FirstName) <small>@Html.DisplayFor(model => model.LastName)</small></h3>
+            </div>
+            <div class="title_right">
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- Content -->
+        <div class="row">
+            <!-- Quick shortcuts -->
+            <div class="col-md-5 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Profiel informatie</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <a class="btn btn-app">
+                            <i class="fa fa-camera"></i> Foto
+                        </a>
+                        <a class="btn btn-app">
+                            <i class="fa fa-file"></i> Gegevens
+                        </a>
+                        <a class="btn btn-app">
+                            <i class="fa fa-phone"></i> Contact
+                        </a>
+                        <a class="btn btn-app">
+                            <i class="fa fa-edit"></i> Dossier
+                        </a>
+                        <a class="btn btn-app">
+                            <i class="fa fa-calendar-check-o"></i> Aanwezigheid
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Quick shortcuts -->
+            <!-- Current attendance -->
+            <!-- /Current attendance -->
+        </div>
+        <div class="row">
+            <!-- Toddler card -->
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Profiel gegevens @*<small>kleine extra text</small>*@</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <!-- Profile picture-->
+
+                    </div>
+
+
+                    <!-- /Content -->
+                </div>
+            </div>
+            <!-- /Toddler card-->
+            <div class="card">
+                <div class="card-header">
+                    Kinderen van @Model.FirstName <button id="AddChild-Opener" class="btn btn-sm btn-primary float-right">+ Kind toevoegen</button>
+                </div>
+                <div class="card-body">
+                    <table>
+                        <tbody>
+                            @foreach (Toddler t in Model.Children)
+                            {
+                                string name = t.FirstName + " " + t.LastName;
+                                <tr>
+                                    <td>@Html.ActionLink(name, "ToddlerDetails", "Contacts", new { id = t.Id }, null)</td>
+                                    <td><button class="btn btn-info btn-sm btn-danger" onclick="location.href='@Url.Action("DeleteFromAssociation", "Contacts", new { subject = Model.Id, delete = t.Id } )'">X</button></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="AddChild-Modal" title="Broer of zus toevoegen"></div>
+            <div id="Delete-Modal" title="Verwijderen"></div>
+        </div>
+    </div>
+</div>
+    </div>
+<!-- /page content-->
+@section styles {
+    @Styles.Render("~/Content/tablecss")
+}
+
+@section scripts{
+    @Scripts.Render("~/scripts/table")
+
+
+    <script>
+        addchilddialog = $("#AddChild-Modal").dialog({
+            autoOpen: false,
+            height: 500,
+            width: 600,
+            modal: true
+        });
+        $("#AddChild-Opener").button().on("click", function () {
+            $('#AddChild-Modal').load('@Url.Action("ShowToddlerList", "Contacts", new { subjectid = Model.Id })');
+            addchilddialog.dialog("open");
+        });
+    </script>
+    <script>
+        deletedialog = $("#Delete-Modal").dialog({
+            autoOpen: false,
+            height: 500,
+            width: 600,
+            modal: true
+        });
+        $("#Delete-Opener").button().on("click", function () {
+            $('#Delete-Modal').load('@Url.Action("Delete", "Contacts", new { subjectid = Model.Id })');
+            deletedialog.dialog("open");
+        });
+    </script>
+}

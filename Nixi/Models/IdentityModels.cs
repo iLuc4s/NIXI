@@ -18,16 +18,22 @@ namespace Nixi.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
+    //public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    //{
+    //    public ApplicationDbContext()
+    //        : base("DefaultConnection", throwIfV1Schema: false)
+    //    {
+    //    }
 
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-    }
+    //    public static ApplicationDbContext Create()
+    //    {
+    //        return new ApplicationDbContext();
+    //    }
+
+    //    public System.Data.Entity.DbSet<Nixi.Areas.Admin.Models.Toddler> Toddlers { get; set; }
+
+    //    public System.Data.Entity.DbSet<Nixi.Areas.Admin.Models.Invoice> Invoices { get; set; }
+
+    //    public System.Data.Entity.DbSet<Nixi.Areas.Admin.Models.Settings> Settings { get; set; }
+    //}
 }

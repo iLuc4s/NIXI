@@ -1,0 +1,14 @@
+﻿@model Nixi.Areas.Admin.Models.DeleteSubjectViewModel
+
+
+<div>
+    <p>@Model.Line1 @Model.Line2 echt verwijderen?</p>
+    @using (Html.BeginForm("Delete", "Contacts", new { id = Model.id })) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Verwijderen" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

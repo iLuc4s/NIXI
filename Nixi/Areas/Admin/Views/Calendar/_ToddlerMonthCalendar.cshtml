@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Nixi.Areas.Admin.Models.AgreedDay>
+
+@{
+    DateTime date = DateTime.Now;
+    int year = ViewBag.year;
+    int month = ViewBag.month;
+}
+
+
+<div id="Calendar_Month">
+
+    
+
+    <table id="month_calendar" class="" style="border:1px solid lightgrey; padding:0px; margin:0px; text-align:center;">
+        <thead>
+            <tr>
+                <td></td>
+                <td style="background-color:white; padding:0px; margin:0px; width:50px;">Ma</td>
+                <td style="background-color:white; padding:0px; margin:0px; width:50px;">Di</td>
+                <td style="background-color:white; padding:0px; margin:0px; width:50px;">Wo</td>
+                <td style="background-color:white; padding:0px; margin:0px; width:50px;">Do</td>
+                <td style="background-color:white; padding:0px; margin:0px; width:50px;">Vr</td>
+                <td style="background-color:white; padding:0px; margin:0px; width:50px;">Za</td>
+                <td style="background-color:white; padding:0px; margin:0px; width:50px;">Zo</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                
+                DateTime firstday = new DateTime(year, month, 1);
+                DateTime startofCalendar = firstday;
+
+                switch (firstday.DayOfWeek)
+                {
+                    case DayOfWeek.Monday:
+                        startofCalendar = firstday;
+                        break;
+                    case DayOfWeek.Tuesday:
+                        startofCalendar = firstday.AddDays(-1); ;
+                        break;
+                    case DayOfWeek.Wednesday:
+                        startofCalendar = firstday.AddDays(-2); ;
+                        break;
+                    case DayOfWeek.Thursday:
+                        startofCalendar = firstday.AddDays(-3); ;
+                        break;
+                    case DayOfWeek.Friday:
+                        startofCalendar = firstday.AddDays(-4); ;
+                        break;
+                    case DayOfWeek.Saturday:
+                        startofCalendar = firstday.AddDays(-5); ;
+                        break;
+                    case DayOfWeek.Sunday:
+                        startofCalendar = firstday.AddDays(-6); ;
+                        break;
+                }
+                DateTime Counter = startofCalendar;
+                for (int r = 1; r <= 6; r++)
+                {
+
+                    <tr style="padding:0px; margin:0px; height:50px;">
+                        <td></td>
+                        @for (int c = 1; c <= 7; c++)
+                        {
+                            var id = "mctd_" + Counter.Year + "_" + Counter.Month + "_" + Counter.Day;
+                            if (Counter.Month != month)
+                            {
+                                <td id="@id" style="background-color:lightcyan; border:1px solid lightgrey; padding:0px; margin:0px;">@Counter.Day</td>
+                            }
+                            else
+                            {
+                                <td id="@id" style="background-color:white; border:1px solid lightgrey; padding:0px; margin:0px;">@Counter.Day</td>
+                            }
+                            Counter = Counter.AddDays(1);
+
+                        }
+
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<div id="Calendar_week">
+
+</div>
+
+<!-- INJECTION OF THE DATES -->
+<script>
+    var agreeddays = @Html.Raw(Json.Encode(@Model));
+    for (var i = 0; i < agreeddays.length; i++) {
+        var myDate = new Date(agreeddays[i].Date.match(/\d+/)[0] * 1);
+                var year = myDate.getFullYear();
+                var month = myDate.getMonth()+1;
+                var day = myDate.getDate();
+                var id = "#mctd_" + year + "_" + month + "_" + day;
+        switch (agreeddays[i].DayType) {
+            case 0:
+                @* Not coming *@
+                $(id).css("background-image", "url(@Url.Content("~/Content/Images/notcoming.png"))").css("background-repeat", "no-repeat").css("background-size", "50px 50px");  
+                break;
+            case 1:
+                @*AM*@
+                $(id).css("background-image", "url(@Url.Content("~/Content/Images/AM.png"))").css("background-repeat", "no-repeat").css("background-size", "50px 50px");    
+                break;
+            case 2:
+                @* PM *@
+                $(id).css("background-image", "url(@Url.Content("~/Content/Images/PM.png"))").css("background-repeat", "no-repeat").css("background-size", "50px 50px");  
+                break;
+            case 3:
+                @* Full Day *@
+                $(id).css("background-image", "url(@Url.Content("~/Content/Images/fullday.png"))").css("background-repeat", "no-repeat").css("background-size", "50px 50px");  
+                break;
+            default:
+                break;
+        }
+    }
+</script>
+
+

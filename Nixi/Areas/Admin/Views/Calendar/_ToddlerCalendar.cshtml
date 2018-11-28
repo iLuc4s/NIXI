@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Nixi.Areas.Admin.Models.AgreedDay>
+
+@{ 
+    DateTime date = DateTime.Now;
+    
+}
+
+
+<div id="Calendar_Year">
+    <table class="" style="border:1px solid lightgrey; padding:0px; margin:0px;">
+        <thead>
+            <tr>
+                <th></th>
+                @for (int d = 1; d <= 31; d++)
+                {
+                    <th scope="col" width="50px;">@d</th>
+                }
+
+            </tr>
+        </thead>
+        <tbody>
+            @for (DateTime d = new DateTime(2018, 1, 1); d <= new DateTime(2018, 12, 31); d = d.AddMonths(1))
+            {
+                <tr>
+                    <th style="border:1px solid lightgrey;">@d.ToString("MMMM")</th>
+                    @for (int dint = 1; dint <= DateTime.DaysInMonth(d.Year, d.Month); dint++)
+                    {
+                        DateTime da = new DateTime(d.Year, d.Month, dint);
+                        string da_Id = "td_" + da.Year.ToString() + "_" + da.Month.ToString() + "_" + da.Day.ToString();
+
+
+                        if (da.DayOfWeek == DayOfWeek.Saturday || da.DayOfWeek == DayOfWeek.Sunday)
+                        {
+                            <td id="@da_Id" style="background-color:lightcyan; border:1px solid lightgrey; padding:0px; margin:0px;">
+
+                            </td>
+                        }
+                        else
+                        {
+                            <td id="@da_Id" style="border:1px solid lightgrey; padding:0px; margin:0px;">
+                                
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<div id="Calendar_week">
+
+</div>
+<script>
+
+
+
+</script>
+
+
+
+
+<!-- INJECTION OF THE DATES -->
+<script>
+    var agreeddays = @Html.Raw(Json.Encode(@Model));
+    for (var i = 0; i < agreeddays.length; i++) {
+        var myDate = new Date(agreeddays[i].Date.match(/\d+/)[0] * 1);
+                var year = myDate.getFullYear();
+                var month = myDate.getMonth()+1;
+                var day = myDate.getDate();
+                var id = "#td_" + year + "_" + month + "_" + day;
+        switch (agreeddays[i].DayType) {
+            case 0:
+                @* Not coming *@
+                $(id).append($('<img/>', { src: '@Url.Content("~/Content/Images/notcoming.png")' }));
+                break;
+            case 1:
+                @*AM*@
+                $(id).append($('<img/>', { src: '@Url.Content("~/Content/Images/AM.png")' }));
+                break;
+            case 2:
+                @* PM *@
+                $(id).append('<img src="@Url.Content("~/Content/Images/PM.png")" />');
+                break;
+            case 3:
+                @* Full Day *@
+                $(id).append('<img src="@Url.Content("~/Content/Images/fullday.png")" />');
+                break;
+            default:
+                break;
+        }
+    } 
+</script>
+    

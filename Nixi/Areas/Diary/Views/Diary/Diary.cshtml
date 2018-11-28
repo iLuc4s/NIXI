@@ -1,0 +1,205 @@
+﻿@model IEnumerable<Nixi.Areas.Diary.Models.ToddlerCard>
+
+@{
+    ViewBag.Title = "Diary";
+    Layout = "~/Areas/Diary/Views/Shared/_DiaryLayout.cshtml";
+}
+
+@using (Html.BeginForm("DiaryEntry", "Diary", FormMethod.Post))
+{
+    @*<div id="timeModal">
+
+        <button id="ToddlerArrived" onclick="updateTime()" value="ToddlerArrived" type="submit" class="registration-button btn btn-primary nav-link" name="submitButton">
+            <span>IN</span>
+        </button>
+    </div>*@
+    @* ----------------------------------------------------------------------------------------NAVIGATION  *@
+    <div class="justify-content-center">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="col-">
+
+                @*<a class="navbar-brand" href="#"><img class="personnel-picture" src="~/Content/Images/personnelpicture.PNG"></a>*@
+
+                <input id="cls" type="hidden" value="@ViewBag.Class" name="c" />
+                <input id="thetime" type="hidden" value="o" name="thetime" />
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="col-auto ml-auto mr-auto" style="padding:0px;">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item button-spacer">
+                            <button id="ToddlerArrived" onclick="updateTime()" value="ToddlerArrived" type="submit" class="registration-button btn btn-primary nav-link" name="submitButton">
+                                <span>IN</span>
+                            </button>
+                        </li>
+                        <li class="nav-item button-spacer">
+                            <button id="ToddlerSleeping" onclick="updateTime()" value="ToddlerSleeping" type="submit" class="registration-button btn btn-primary nav-link" name="submitButton">
+                                <span>SLEEP</span>
+                            </button>
+                        </li>
+                        <li class="nav-item button-spacer">
+                            <button id="ToddlerEating" onclick="updateTime()" value="ToddlerEating" type="submit" class="registration-button btn btn-primary nav-link" name="submitButton">
+                                <span>EAT</span>
+                            </button>
+                        </li>
+                        <li class="nav-item button-spacer">
+                            <button id="ToddlerComment" onclick="updateTime()" value="ToddlerComment" type="submit" class="registration-button btn btn-primary nav-link" name="submitButton">
+                                <span>COMM</span>
+                            </button>
+                        </li>
+                        <li class="nav-item button-spacer">
+                            <button id="ToddlerDiaper" onclick="updateTime()" value="ToddlerDiaper" type="submit" class="registration-button btn btn-primary nav-link" name="submitButton">
+                                <span>DIAPER</span>
+                            </button>
+                        </li>
+                        <li class="nav-item button-spacer">
+                            <button id="ToddlerExit" onclick="updateTime()" value="ToddlerExit" type="submit" class="registration-button btn btn-primary nav-link" name="submitButton">
+                                <span>OUT</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="navbar col-" style="padding:0px;">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item button-spacer">
+                        <a class="fullscreen-button btn btn-info nav-link" href="#">PICTURE</a>
+                    </li>
+                    <li class="nav-item button-spacer">
+                        <a class="fullscreen-button btn btn-info nav-link" href="#" onclick="toggleFullScreen()">FULL</a>
+                    </li>
+                    <li class="nav-item button-spacer">
+                        @Html.ActionLink("EXIT", "Index", "Diary", null, new { @class = "btn btn-danger nav-link registration-button" })
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+    </div>
+    
+
+
+    @* ---------------------------------------------------------------------------------------- ToddlerCards  *@
+
+    foreach (var tc in Model)
+    {
+        switch (tc.Status)
+        {
+            case Nixi.Areas.Admin.Models.DiaryEntryStatus.NotArrived:
+                <div class="toddlercard">
+                    <input type="checkbox" class="toddlercard-checkbox" id="@tc.ToddlerId" value="@tc.ToddlerId" name="@tc.ToddlerId" />
+                    <label for="@tc.ToddlerId" class="btn toddlercard-label away">
+                        @* Extra Status *@
+                        <span class="toddlercard-status">Thuis</span><br>
+                        @* Standard Card *@
+                        <img class="toddlercard-icon" src="~/Content/Images/baby.png">
+                        <br>
+                        <span class="toddlercard-name">@tc.Name</span>
+                    </label>
+                </div>
+                break;
+
+            case Nixi.Areas.Admin.Models.DiaryEntryStatus.Exit:
+                <div class="toddlercard">
+                    <input type="checkbox" class="toddlercard-checkbox" id="@tc.ToddlerId" value="@tc.ToddlerId" name="@tc.ToddlerId" />
+                    <label for="@tc.ToddlerId" class="btn toddlercard-label away">
+                        @* Extra Status *@
+                        <span class="toddlercard-status">Vertrokken</span><br>
+                        @* Standard Card *@
+                        <img class="toddlercard-icon" src="~/Content/Images/baby.png">
+                        <br>
+                        <span class="toddlercard-name">@tc.Name</span>
+                    </label>
+                </div>
+                break;
+            case Nixi.Areas.Admin.Models.DiaryEntryStatus.Sleeping:
+                <div class="toddlercard">
+                    <input type="checkbox" class="toddlercard-checkbox" id="@tc.ToddlerId" value="@tc.ToddlerId" name="@tc.ToddlerId" />
+                    <label for="@tc.ToddlerId" class="btn toddlercard-label sleeping">
+                        @* Extra Status *@
+                        <span class="toddlercard-status">Slaapt</span><br>
+                        @* Standard Card *@
+                        <img class="toddlercard-icon" src="~/Content/Images/baby.png">
+                        <br>
+                        <span class="toddlercard-name">@tc.Name</span>
+                    </label>
+                </div>
+                break;
+            default:
+                <div class="toddlercard">
+                    <input type="checkbox" class="toddlercard-checkbox" id="@tc.ToddlerId" value="@tc.ToddlerId" name="@tc.ToddlerId" />
+                    <label for="@tc.ToddlerId" class="btn toddlercard-label normal">
+                        @* Standard Card *@
+                        <img class="toddlercard-icon" src="~/Content/Images/baby.png">
+                        <br>
+                        <span class="toddlercard-name">@tc.Name</span>
+                    </label>
+                </div>
+                break;
+        }
+    }
+
+}
+@* ---------------------------------------------------------------------------------------- TODDLER FOOTER  *@
+
+<div id="ToddlerInfo">
+</div>
+
+
+@section scripts{
+    <script>
+    var timer;
+
+    function startTimer() {
+        timer = setTimeout(function () { $(".toddlercard-checkbox").prop("checked", false); }, 60000);
+    }
+
+    function stopTimer() {
+        clearTimeout(timer);
+    }
+
+        $(".toddlercard-checkbox").change(function () {
+            var that = this;
+
+            stopTimer();
+            startTimer();
+
+            var id = $(this).val();
+            $.ajax({
+                url: '@Url.Action("ToddlerInfo", "Diary")',
+                type: 'GET',
+                cache: false,
+                data: { subjectid: id }
+            }).done(function(result) {
+                $('#ToddlerInfo').html(result);
+            });
+        });
+    </script>
+    <script>
+        //timeModaldialog = $("#timeModal").dialog({
+        //    position: { my: "left", at: "left top", of: window },
+        //    autoOpen: false,
+        //    height: 300,
+        //    width: "auto",
+        //    modal: true
+        //});
+    </script>
+    <script>
+        function updateTime() {
+            //timeModaldialog.dialog("open");
+            var time = new Date();
+            var string = time.toISOString();
+            $("#thetime").val(string);
+        }
+
+
+    </script>
+
+
+}
+
+
+
+

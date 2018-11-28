@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Nixi.Areas.Admin.Models.Toddler>
+
+@{
+    ViewBag.Title = "ToddlerIndex";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Onze kindjes <small>Alle kindjes over alle locaties</small></h3>
+            </div>
+            <div class="title_right">
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- Content -->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Tabel <small>Kindjes</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="#">Settings 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <p class="text-muted font-13 m-b-30">
+                            Dit is nog een extra lijntje
+                        </p>
+                        <table id="datatable-fixed-header" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.FirstName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LastName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DayOfBirth)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Gender)
+                                    </th>
+                                    <th>
+                                        Ouders
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FirstName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LastName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DayOfBirth)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Gender)
+                                        </td>
+                                        <td style="padding:5px 0 0 5px;">
+                                            <ul class="list-inline" style="margin:0; padding:0;">
+                                                <li>
+                                                    <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="Jan Janssens"><span class="fa fa-male"></span></button>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="right" title="Carine Milis"><span class="fa fa-female"></span></button>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td style="padding:5px 0 0 10px;">
+                                            <a href="@Url.Action("ToddlerDetails", "Contacts", new { id = item.Id })" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> Open</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /Content-->
+    </div>
+</div>
+@section styles {
+    @Styles.Render("~/Content/tablecss")
+}
+@section scripts {
+    @Scripts.Render("~/scripts/table")
+}

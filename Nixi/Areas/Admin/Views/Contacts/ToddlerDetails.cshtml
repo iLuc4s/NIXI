@@ -1,0 +1,637 @@
+﻿@model Nixi.Areas.Admin.Models.Toddler
+@using Nixi.Areas.Admin.Models
+@{
+    ViewBag.Title = "ToddlerDetails";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>@Html.DisplayFor(model => model.FirstName) <small>@Html.DisplayFor(model => model.LastName)</small></h3>
+            </div>
+            <div class="title_right">
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- Content -->
+        <div class="row">
+            <!-- Quick shortcuts -->
+            <div class="col-md-5 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Profiel informatie</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <a class="btn btn-app">
+                            <i class="fa fa-camera"></i> Foto
+                        </a>
+                        <a class="btn btn-app">
+                            <i class="fa fa-file"></i> Gegevens
+                        </a>
+                        <a class="btn btn-app">
+                            <i class="fa fa-phone"></i> Contact
+                        </a>
+                        <a class="btn btn-app">
+                            <i class="fa fa-edit"></i> Dossier
+                        </a>
+                        <a class="btn btn-app">
+                            <i class="fa fa-calendar-check-o"></i> Aanwezigheid
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Quick shortcuts -->
+            <!-- Current attendance -->
+            <div class="col-md-7 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    @{
+                        AgreedPeriod current = Model.AgreedPeriods.Where(ap => (ap.StartDate <= DateTime.Now && ap.EndDate >= DateTime.Now)).FirstOrDefault();
+                        if (current != null)
+                        {
+                            <div class="x_title">
+                                <h2>Huidige aanwezigheid <small>Van @current.StartDate.ToShortDateString() tot @current.EndDate.ToShortDateString()</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <!-- Days -->
+                                <div style="width:100%; text-align:center;">
+                                    <div class="btn-group-vertical" style="width:80px;">
+                                        <button class="btn btn-default btn-sm" type="button">Maandag</button>
+                                        @switch (current.Monday)
+                                        {
+                                            case DayType.FullDay:
+                                                <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                                <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                                break;
+                                            case DayType.AM:
+                                                <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                                <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                                break;
+                                            case DayType.PM:
+                                                <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                                <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                                break;
+                                            case DayType.NotComing:
+                                                <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                                <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                                break;
+                                        }
+                                    </div>
+                                    <div class="btn-group-vertical" style="width:80px;">
+                                        <button class="btn btn-default btn-sm" type="button">Dinsdag</button>
+                                        @switch (current.Tuesday)
+                                        {
+                                            case DayType.FullDay:
+                                                <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                                <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                                break;
+                                            case DayType.AM:
+                                                <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                                <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                                break;
+                                            case DayType.PM:
+                                                <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                                <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                                break;
+                                            case DayType.NotComing:
+                                                <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                                <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                                break;
+                                        }
+                                    </div>
+                                    <div class="btn-group-vertical" style="width:80px;">
+                                        <button class="btn btn-default btn-sm" type="button">Woensdag</button>
+                                        @switch (current.Wednesday)
+                                        {
+                                            case DayType.FullDay:
+                                                <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                                <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                                break;
+                                            case DayType.AM:
+                                                <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                                <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                                break;
+                                            case DayType.PM:
+                                                <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                                <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                                break;
+                                            case DayType.NotComing:
+                                                <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                                <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                                break;
+                                        }
+                                    </div>
+                                    <div class="btn-group-vertical" style="width:80px;">
+                                        <button class="btn btn-default btn-sm" type="button">Donderdag</button>
+                                        @switch (current.Thursday)
+                                        {
+                                            case DayType.FullDay:
+                                                <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                                <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                                break;
+                                            case DayType.AM:
+                                                <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                                <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                                break;
+                                            case DayType.PM:
+                                                <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                                <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                                break;
+                                            case DayType.NotComing:
+                                                <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                                <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                                break;
+                                        }
+                                    </div>
+                                    <div class="btn-group-vertical" style="width:80px;">
+                                        <button class="btn btn-default btn-sm" type="button">Vrijdag</button>
+                                        @switch (current.Friday)
+                                        {
+                                            case DayType.FullDay:
+                                                <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                                <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                                break;
+                                            case DayType.AM:
+                                                <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                                <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                                break;
+                                            case DayType.PM:
+                                                <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                                <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                                break;
+                                            case DayType.NotComing:
+                                                <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                                <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                                break;
+                                        }
+                                    </div>
+                                </div>
+                                <!-- /Days -->
+                            </div>
+                        }
+
+                    }
+                </div>
+
+            </div>
+            <!-- /Current attendance -->
+        </div>
+        <div class="row">
+            <!-- Toddler card -->
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Profiel gegevens @*<small>kleine extra text</small>*@</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <!-- Profile picture-->
+                        
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 profile_left">
+                            <h3>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h3>
+                            <div class="profile_img">
+                                <div id="crop-avatar">
+                                    <!-- Current avatar -->
+                                    <img class="img-responsive avatar-view" src="~/Content/Images/babyvector.jpg" alt="Avatar" title="Change the avatar" style="max-height:200px; max-width:200px;">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- Short information-->
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.Id)
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12", @for = "first-name" })
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", @id = "first-name" } })
+                                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12", @for = "last-name" })
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", @id = "last-name" } })
+                                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DayOfBirth, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12", @for = "birthday" })
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.EditorFor(model => model.DayOfBirth, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", @id = "birthday" } })
+                                            @Html.ValidationMessageFor(model => model.DayOfBirth, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12", @for = "gender" })
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.EnumDropDownListFor(model => model.Gender, htmlAttributes: new { @class = "form-control col-md-7 col-xs-12", @id = "gender" })
+                                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.GuaranteePrice, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12", @for = "guarantee" })
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.EditorFor(model => model.GuaranteePrice, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", @id = "guarantee" } })
+                                            @Html.ValidationMessageFor(model => model.GuaranteePrice, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                            <input type="submit" value="Opslaan" class="btn btn-primary btn-xs" />
+                                        </div>
+                                    </div>
+                                    @*<div class="ln_solid"></div>*@
+                                </div>
+                            }
+                        </div>
+                        @*<div class="clearfix"></div>*@
+                        @*<div class="ln_solid visible-md"></div>*@
+                        <!-- Family -->
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <!-- Parents -->
+                            <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12">
+                                <h2>Ouders</h2>
+                                @foreach (Person p in Model.Parents)
+                                {
+                                    string name = p.FirstName + " " + p.LastName;
+                                    <div class="btn-group">
+                                        <button style="width:150px;" class="btn btn-default" onclick="location.href='@Url.Action("PersonDetails", "Contacts", new { id = p.Id } )'">@name</button>
+                                        <button class="btn btn-danger" onclick="location.href='@Url.Action("DeleteFromAssociation", "Contacts", new { subject = Model.Id, delete = p.Id } )'"><span class="fa fa-remove"></span></button>
+                                    </div><br />
+
+                                }
+                                <br /><button id="AddParent-Opener" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalAddParent">+ Toevoegen</button> <button id="CreateParent-Opener" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalCreateParent">+ Creëeren</button>
+                                <div id="modalAddParent" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">Ouder toevoegen</h4>
+                                            </div>
+                                            <div id="modalAddParentBody" class="modal-body">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="modalCreateParent" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">Ouder creeëren</h4>
+                                            </div>
+                                            <div id="modalCreateParentBody" class="modal-body">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ln_solid visible-lg"></div>
+                            </div>
+                            <!-- Siblings -->
+                            <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12">
+                                <h2>Broers / zussen</h2>
+
+                                @foreach (Toddler t in Model.Siblings)
+                                {
+                                    string name = t.FirstName + " " + t.LastName;
+                                    <div class="btn-group">
+                                        <button style="width:150px;" class="btn btn-default" onclick="location.href='@Url.Action("ToddlerDetails", "Contacts", new { id = t.Id } )'">@name</button>
+                                        <button class="btn btn-danger" onclick="location.href='@Url.Action("DeleteFromAssociation", "Contacts", new { subject = Model.Id, delete = t.Id } )'"><span class="fa fa-remove"></span></button>
+                                    </div><br />
+                                }
+                                <br /><button id="AddSibling-Opener" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalAddSibling">+ Toevoegen</button>
+                                <div id="modalAddSibling" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">Ouder creeëren</h4>
+                                            </div>
+                                            <div id="modalAddSiblingBody" class="modal-body">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- /Content -->
+                </div>
+            </div>
+            <!-- /Toddler card-->
+            <!-- Activities -->
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Recente dagboek activiteiten</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <ul class="list-unstyled timeline">
+                            <li>
+                                <div class="block">
+                                    <div class="tags">
+
+                                    </div>
+                                    <div class="block_content">
+                                        <h2 class="title">
+                                            <a>Opgehaald door mama Lut</a>
+                                        </h2>
+                                        <div class="byline">
+                                            <span>17:16</span> by <a>Janne Smets</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="block">
+                                    <div class="tags">
+
+                                    </div>
+                                    <div class="block_content">
+                                        <h2 class="title">
+                                            <a>Nieuwe Pamper</a>
+                                        </h2>
+                                        <div class="byline">
+                                            <span>16:30</span> door <a>Janne Smets</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="block">
+                                    <div class="tags">
+
+                                    </div>
+                                    <div class="block_content">
+                                        <h2 class="title">
+                                            <a>Wakker geworden</a>
+                                        </h2>
+                                        <div class="byline">
+                                            <span>16:20</span> door <a>Janne Smets</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="block">
+                                    <div class="tags">
+
+                                    </div>
+                                    <div class="block_content">
+                                        <h2 class="title">
+                                            <a>Gaan slapen</a>
+                                        </h2>
+                                        <div class="byline">
+                                            <span>15:05</span> door <a>Janne Smets</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /Activities -->
+            <!-- All Periods -->
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Aanwezigheid periodes</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        @foreach (AgreedPeriod ap in Model.AgreedPeriods.OrderBy(a => a.StartDate))
+                        {
+                            <div style="width:100%; text-align:center;">
+                                <div class="btn-group-vertical" style="width:120px;">
+                                    <button class="btn btn-default btn-sm" type="button">Van / Tot</button>
+                                    @{
+                                        if (ap.StartDate <= DateTime.Now && ap.EndDate >= DateTime.Now)
+                                        {
+                                            <button class="btn btn-success btn-xs" type="button">@ap.StartDate.ToString("d MMMM yyyy")</button>
+                                            <button class="btn btn-success btn-xs" type="button">@ap.EndDate.ToString("d MMMM yyyy")</button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-default btn-xs" type="button">@ap.StartDate.ToString("d MMMM yyyy")</button>
+                                            <button class="btn btn-default btn-xs" type="button">@ap.EndDate.ToString("d MMMM yyyy")</button>
+                                        }
+                                    }
+
+                                </div>
+                                <!-- Days -->
+                                <div class="btn-group-vertical" style="width:80px;">
+                                    <button class="btn btn-default btn-sm" type="button">Maandag</button>
+                                    @switch (ap.Monday)
+                                    {
+                                        case DayType.FullDay:
+                                            <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                            <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                            break;
+                                        case DayType.AM:
+                                            <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                            <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                            break;
+                                        case DayType.PM:
+                                            <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                            <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                            break;
+                                        case DayType.NotComing:
+                                            <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                            <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                            break;
+                                    }
+                                </div>
+                                <div class="btn-group-vertical" style="width:80px;">
+                                    <button class="btn btn-default btn-sm" type="button">Dinsdag</button>
+                                    @switch (ap.Tuesday)
+                                    {
+                                        case DayType.FullDay:
+                                            <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                            <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                            break;
+                                        case DayType.AM:
+                                            <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                            <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                            break;
+                                        case DayType.PM:
+                                            <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                            <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                            break;
+                                        case DayType.NotComing:
+                                            <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                            <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                            break;
+                                    }
+                                </div>
+                                <div class="btn-group-vertical" style="width:80px;">
+                                    <button class="btn btn-default btn-sm" type="button">Woensdag</button>
+                                    @switch (ap.Wednesday)
+                                    {
+                                        case DayType.FullDay:
+                                            <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                            <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                            break;
+                                        case DayType.AM:
+                                            <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                            <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                            break;
+                                        case DayType.PM:
+                                            <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                            <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                            break;
+                                        case DayType.NotComing:
+                                            <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                            <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                            break;
+                                    }
+                                </div>
+                                <div class="btn-group-vertical" style="width:80px;">
+                                    <button class="btn btn-default btn-sm" type="button">Donderdag</button>
+                                    @switch (ap.Thursday)
+                                    {
+                                        case DayType.FullDay:
+                                            <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                            <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                            break;
+                                        case DayType.AM:
+                                            <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                            <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                            break;
+                                        case DayType.PM:
+                                            <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                            <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                            break;
+                                        case DayType.NotComing:
+                                            <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                            <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                            break;
+                                    }
+                                </div>
+                                <div class="btn-group-vertical" style="width:80px;">
+                                    <button class="btn btn-default btn-sm" type="button">Vrijdag</button>
+                                    @switch (ap.Friday)
+                                    {
+                                        case DayType.FullDay:
+                                            <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                            <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                            break;
+                                        case DayType.AM:
+                                            <button class="btn btn-primary btn-xs" type="button">AM</button>
+                                            <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                            break;
+                                        case DayType.PM:
+                                            <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                            <button class="btn btn-primary btn-xs" type="button">PM</button>
+                                            break;
+                                        case DayType.NotComing:
+                                            <button class="btn btn-default btn-xs disabled" type="button">AM</button>
+                                            <button class="btn btn-default btn-xs disabled" type="button">PM</button>
+                                            break;
+                                    }
+                                </div>
+                            </div><br />
+                            <!-- /Days -->
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- /All Periods -->
+            @*<div style="width:30rem; margin:10px;">@Html.Action("PartialToddlerCalendar", "Calendar", new { id = Model.Id, year = DateTime.Now.Year }) </div>*@
+        </div>
+    </div>
+</div>
+<!-- /page content-->
+@section styles {
+    @Styles.Render("~/Content/tablecss")
+}
+
+@section scripts{
+    @Scripts.Render("~/scripts/table")
+
+    <script>
+        $("#CreateParent-Opener").button().on("click", function () {
+            $('#modalCreateParentBody').load('@Url.Action("CreateParentFromToddler", "Contacts", new { subjectid = Model.Id })');
+
+        });
+    </script>
+    <script>
+        $("#AddParent-Opener").button().on("click", function () {
+            $('#modalAddParentBody').load('@Url.Action("ShowParentList", "Contacts", new { subjectid = Model.Id })');
+        });
+    </script>
+    <script>
+
+        $("#AddSibling-Opener").button().on("click", function () {
+            $('#modalAddSiblingBody').load('@Url.Action("ShowToddlerList", "Contacts", new { subjectid = Model.Id })');
+        });
+    </script>
+    <script>
+        $("#Delete-Opener").button().on("click", function () {
+            $('#Delete-Modal').load('@Url.Action("Delete", "Contacts", new { subjectid = Model.Id })');
+            deletedialog.dialog("open");
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#DayOfBirth").datepicker();
+        });
+    </script>
+}

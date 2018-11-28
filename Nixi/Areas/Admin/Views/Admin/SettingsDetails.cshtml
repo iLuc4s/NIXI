@@ -1,0 +1,131 @@
+﻿@model Nixi.Areas.Admin.Models.Settings
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Settings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Locations)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Locations)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Classes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Classes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeWorkWithHalfDays)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeWorkWithHalfDays)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PayWhenIllness)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PayWhenIllness)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeBuyDiapers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeBuyDiapers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondChildDiscount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecondChildDiscount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SiblingNoGuarantee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SiblingNoGuarantee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceToPaycheck)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceToPaycheck)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DayPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DayPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HalfDayPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HalfDayPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaperPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaperPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondChildDiscountPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecondChildDiscountPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceToPayCheckFactor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceToPayCheckFactor)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "SettingsEdit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

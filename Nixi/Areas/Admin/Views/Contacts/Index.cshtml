@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<div class="col-sm-auto bg-dark" id="admin-sidebar">
+        @Html.Partial("_ContactsSideMenu")
+    </div>*@
+<!-- page content -->
+<div class="right_col" role="main">
+    <!--  #### NAVBAR ####  -->
+    @*<nav class="navbar navbar-light bg-light">
+        <a href="#" class="navbar-brand">Alle contacten</a>
+        <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Zoeken" aria-label="Zoeken">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Zoeken</button>
+            </form>
+    </nav>*@
+
+    <button class="btn btn-warning">@Html.ActionLink("Nieuw kind aanmaken", "CreateToddlerShortInfo")</button>
+
+    <div class="clearfix"></div>
+</div>
+<!-- /page content -->

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Nixi.Areas.Admin.Models.Class>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Diary/Views/Shared/_DiaryLayout.cshtml";
+}
+
+@{ 
+    foreach(var c in Model)
+    {
+        @Html.ActionLink(c.Name, "Diary", new { date = DateTime.Now, c = c.Id })
+        <br />
+    }
+}

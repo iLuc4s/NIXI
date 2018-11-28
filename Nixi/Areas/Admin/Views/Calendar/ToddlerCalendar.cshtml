@@ -1,0 +1,151 @@
+﻿@model Nixi.Areas.Admin.Models.ToddlerCalendarViewModel
+@using Nixi.Areas.Admin.Models
+@{
+    ViewBag.Title = "ToddlerCalendar";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-sm-auto bg-dark" id="admin-sidebar">
+    @Html.Partial("_CalendarSideMenu", new List<Class> {  })
+</div>
+<div class="col" id="admin-content">
+    <!--  #### NAVBAR ####  -->
+    <nav class="navbar navbar-light bg-light">
+        @Html.ActionLink("Terug naar Profiel", "ToddlerDetails", "Contacts", new { id = Model.Toddler.Id }, new { @class = "btn btn-light btn-lg", @role = "button" })
+        <a href="#" class="navbar-brand">@Html.DisplayFor(model => model.Toddler.FirstName) @Html.DisplayFor(model => model.Toddler.LastName)</a>
+
+        @*<form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Zoeken" aria-label="Zoeken">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Zoeken</button>
+            </form>*@
+    </nav>
+    <!-- Content -->
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            @Html.ActionLink("<-", "ToddlerCalendar", new { id = Model.Toddler.Id, period = Model.Period.AddMonths(-1) }, new { @class = "btn btn-outline-dark btn-sm", @role = "button" })
+        </div>
+        <input class="btn btn-sm btn-outline-dark" type="button" value="@Model.Period.ToString("MMMM") @Model.Period.Year">
+        <div class="input-group-append">
+            @Html.ActionLink("->", "ToddlerCalendar", new { id = Model.Toddler.Id, period = Model.Period.AddMonths(1) }, new { @class = "btn btn-outline-dark btn-sm", @role = "button" })
+        </div>
+    </div>
+
+    <div id="Calendar_Month">
+        <table id="month_calendar" class="Own_Calendar" style="border:1px solid lightgrey; padding:0px; margin:0px; text-align:center;">
+            <thead>
+                <tr>
+                    
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Ma</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Di</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Wo</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Do</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Vr</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Za</td>
+                    <td style="background-color:white; padding:0px; margin:0px; width:50px;">Zo</td>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+
+                    DateTime firstday = new DateTime(Model.Period.Year, Model.Period.Month, 1);
+                    DateTime startofCalendar = firstday;
+
+                    switch (firstday.DayOfWeek)
+                    {
+                        case DayOfWeek.Monday:
+                            startofCalendar = firstday;
+                            break;
+                        case DayOfWeek.Tuesday:
+                            startofCalendar = firstday.AddDays(-1); ;
+                            break;
+                        case DayOfWeek.Wednesday:
+                            startofCalendar = firstday.AddDays(-2); ;
+                            break;
+                        case DayOfWeek.Thursday:
+                            startofCalendar = firstday.AddDays(-3); ;
+                            break;
+                        case DayOfWeek.Friday:
+                            startofCalendar = firstday.AddDays(-4); ;
+                            break;
+                        case DayOfWeek.Saturday:
+                            startofCalendar = firstday.AddDays(-5); ;
+                            break;
+                        case DayOfWeek.Sunday:
+                            startofCalendar = firstday.AddDays(-6); ;
+                            break;
+                    }
+                    DateTime Counter = startofCalendar;
+                    for (int r = 1; r <= 6; r++)
+                    {
+
+                        <tr style="padding:0px; margin:0px; height:50px;">
+                            
+                            @for (int c = 1; c <= 7; c++)
+                            {
+                                var id = "mctd_" + Counter.Year + "_" + Counter.Month + "_" + Counter.Day;
+                                if (Counter.Month != Model.Period.Month)
+                                {
+                                    <td id="@id" style="background-color:ghostwhite; border:1px solid lightgrey; padding:0px; margin:0px;" class="text-muted">@Counter.Day</td>
+                                }
+                                else
+                                {
+                                    <td id="@id" class="Own_Calendar-No">@Counter.Day</td>
+                                }
+                                Counter = Counter.AddDays(1);
+
+                            }
+
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+@section scripts{
+    <!-- INJECTION OF THE DATES -->
+    <script>
+    var agreeddays = @Html.Raw(Json.Encode(@Model.AgreedDays));
+    for (var i = 0; i < agreeddays.length; i++) {
+        var myDate = new Date(agreeddays[i].Date.match(/\d+/)[0] * 1);
+                var year = myDate.getFullYear();
+                var month = myDate.getMonth()+1;
+                var day = myDate.getDate();
+                var id = "#mctd_" + year + "_" + month + "_" + day;
+        
+        switch (agreeddays[i].DayType) {
+            case 0:
+                @* Not coming *@
+                alert(id);
+                $(id).removeClass("Own_Calendar-No");
+                $(id).addClass("Own_Calendar-No");
+                break;
+            case 1:
+                @*AM*@
+                $(id).removeClass("Own_Calendar-No");
+                $(id).addClass("Own_Calendar-AM");
+                break;
+            case 2:
+                @* PM *@
+                $(id).removeClass("Own_Calendar-No");
+                $(id).addClass("Own_Calendar-PM");
+                break;
+            case 3:
+                @* Full Day *@
+                $(id).removeClass("Own_Calendar-No");
+                $(id).addClass("Own_Calendar-Full");
+                break;
+            default:
+                break;
+        }
+
+    }
+    </script>
+
+
+
+}
+

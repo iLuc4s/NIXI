@@ -1,0 +1,130 @@
+﻿@model Nixi.Areas.Admin.Models.HeadCountMonthCalendarViewModel
+@using Nixi.Areas.Admin.Models
+@{
+    ViewBag.Title = "HeadcountMonthCalendar";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    DateTime period = ViewBag.period;
+
+}
+@section css {
+    <link href="@Url.Content("~/Content/calendar.css")" rel="stylesheet" />
+}
+<div class="col-sm-auto bg-dark" id="admin-sidebar">
+    @Html.Partial("_CalendarSideMenu", Model.AllClasses)
+</div>
+<div class="col" id="admin-content">
+    <!--  #### NAVBAR ####  -->
+    <nav class="navbar navbar-light bg-light">
+        @Html.ActionLink("Terug naar Overzicht", "Index", "Calendar", null, new { @class = "btn btn-light btn-lg", @role = "button" })
+        <a href="#" class="navbar-brand">Kalender</a>
+
+        @*<form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Zoeken" aria-label="Zoeken">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Zoeken</button>
+            </form>*@
+    </nav>
+    <!-- Content -->
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            @Html.ActionLink("<-", "Headcount_MonthCalendar", new { period = period.AddMonths(-1), classID = Model.TheClass.Id  }, new { @class = "btn btn-outline-dark btn-sm", @role = "button" })
+        </div>
+        <input class="btn btn-sm btn-outline-dark" type="button" value="@period.ToString("MMMM") @period.Year">
+        <div class="input-group-append">
+            @Html.ActionLink("->", "Headcount_MonthCalendar", new { period = period.AddMonths(1), classID = Model.TheClass.Id }, new { @class = "btn btn-outline-dark btn-sm", @role = "button" })
+        </div>
+    </div>
+    <div id="Calendar_Month">
+
+
+        <p>Naam van de klas: <b>@Model.TheClass.Name</b> </p>
+
+    </div>
+    <div id="Calendar_Month_Div" style="min-width:560px; width:560px;">
+        <div id="Calendar_header">
+            <div class="float-left" style="text-align: center; background-color:white; padding:0px; margin:2px; width:75px;">Ma</div>
+            <div class="float-left" style="text-align: center;background-color:white; padding:0px; margin:2px; width:75px;">Di</div>
+            <div class="float-left" style="text-align: center;background-color:white; padding:0px; margin:2px; width:75px;">Wo</div>
+            <div class="float-left" style="text-align: center;background-color:white; padding:0px; margin:2px; width:75px;">Do</div>
+            <div class="float-left" style="text-align: center;background-color:white; padding:0px; margin:2px; width:75px;">Vr</div>
+            <div class="float-left" style="text-align: center;background-color:white; padding:0px; margin:2px; width:75px;">Za</div>
+            <div class="float-left" style="text-align: center;background-color:white; padding:0px; margin:2px; width:75px;">Zo</div>
+        </div>
+        <div id="Calendar_dates">
+            @foreach (HeadcountByDay hbd in Model.HeadCountByDay)
+            {
+                var id = "mctd_" + hbd.Date.Year + "_" + hbd.Date.Month + "_" + hbd.Date.Day;
+                var id_AM = "mctd_" + hbd.Date.Year + "_" + hbd.Date.Month + "_" + hbd.Date.Day + "_AM";
+                var id_PM = "mctd_" + hbd.Date.Year + "_" + hbd.Date.Month + "_" + hbd.Date.Day + "_PM";
+
+                if (hbd.Date.Month == period.Month)
+                {
+                    <div id="@id" class="Calendar_day float-left border border-dark" style="margin: 2px; width: 75px; height:75px; background-color: white;">
+                        <div style="text-align: right; padding-right:10px;">@hbd.Date.Day</div>
+                        <div id="@id_AM" class="Calendar_day_AM" style="text-align: center; height:19px;">
+                            @{
+                                if (hbd.AM_Count >= Model.TheClass.MaxToddlersEachDay)
+                                {
+                                    <span class="badge badge-primary">AM: @hbd.AM_Count</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-success">AM: @hbd.AM_Count</span>
+                                }
+                            }
+                            
+                        </div>
+                        <div id="@id_PM" class="Calendar_day_PM" style="text-align: center; height:18px;">
+                            @{
+                                if (hbd.PM_Count >= Model.TheClass.MaxToddlersEachDay)
+                                {
+                                    <span class="badge badge-primary">PM: @hbd.PM_Count</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-success">PM: @hbd.PM_Count</span>
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div id="@id" class="Calendar_day float-left border border-dark" style="margin: 2px; width: 75px; height:75px; background-color: aliceblue;">
+                        <div style="text-align: right; padding-right:10px;">@hbd.Date.Day</div>
+                        <div id="@id_AM" class="Calendar_day_AM" style="text-align: center; height:19px;">
+                            @{
+                                if (hbd.AM_Count >= Model.TheClass.MaxToddlersEachDay)
+                                {
+                                    <span class="badge badge-info">AM: @hbd.AM_Count</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-info">AM: @hbd.AM_Count</span>
+                                }
+                            }
+                            
+                        </div>
+                        <div id="@id_PM" class="Calendar_day_PM" style="text-align: center; height:18px;">
+                            @{
+                                if (hbd.PM_Count >= Model.TheClass.MaxToddlersEachDay)
+                                {
+                                    <span class="badge badge-info">PM: @hbd.PM_Count</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-info">PM: @hbd.PM_Count</span>
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <!-- INJECTION OF THE DATES -->
+
+}
